@@ -5,6 +5,7 @@ import StartScreen from "./components/StartScreen";
 import Error from "./components/Error";
 import Questions from "./components/quiz/Questions";
 import Loader from "./components/Loader";
+import NextButton from "./components/NextButton";
 
 const initialState = {
   questions: [],
@@ -40,6 +41,12 @@ const reducer = (state, action) => {
           question.correctOption === action.payload
             ? state.point + question.points
             : state.point,
+      };
+    case "nextQuestion":
+      return {
+        ...state,
+        index: state.index + 1,
+        answer: null,
       };
 
     default:
@@ -82,12 +89,13 @@ function App() {
           {status === "error" && <Error />};
           {status === "active" && (
             <>
+              {/* <p>{point}</p> */}
               <Questions
                 question={questions[index]}
                 dispatch={dispatch}
                 answer={answer}
               />
-              <p>{point}</p>
+              <NextButton dispatch={dispatch} answer={answer} />
             </>
           )}
         </Main>
