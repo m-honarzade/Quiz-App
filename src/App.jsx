@@ -6,6 +6,7 @@ import Error from "./components/Error";
 import Questions from "./components/quiz/Questions";
 import Loader from "./components/Loader";
 import NextButton from "./components/NextButton";
+import ProgressBar from "./components/ProgressBar";
 
 const initialState = {
   questions: [],
@@ -58,6 +59,11 @@ function App() {
     reducer,
     initialState
   );
+  const numOfQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
 
   useEffect(() => {
     const questions = async () => {
@@ -89,7 +95,13 @@ function App() {
           {status === "error" && <Error />};
           {status === "active" && (
             <>
-              {/* <p>{point}</p> */}
+              <ProgressBar
+                numOfQuestions={numOfQuestions}
+                maxPossiblePoints={maxPossiblePoints}
+                index={index}
+                point={point}
+                answer={answer}
+              />
               <Questions
                 question={questions[index]}
                 dispatch={dispatch}

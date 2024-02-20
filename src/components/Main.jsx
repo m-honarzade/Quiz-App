@@ -1,7 +1,9 @@
 const Main = ({ children }) => {
   return (
     <>
-      <div className="flex flex-col justify-center">{children}</div>
+      <div className="flex flex-col items-center justify-center ">
+        {children}
+      </div>
     </>
   );
 };
