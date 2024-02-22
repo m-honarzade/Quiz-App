@@ -55,6 +55,12 @@ const reducer = (state, action) => {
         ...state,
         status: "finish",
       };
+    case "restart":
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
+      };
 
     default:
       throw new Error("Unknown Error.");
@@ -91,9 +97,9 @@ function App() {
         <Header />
 
         <Main>
-          {status === "loading" && <Loader />};
-          {status === "ready" && <StartScreen dispatch={dispatch} />};
-          {status === "error" && <Error />};
+          {status === "loading" && <Loader />}
+          {status === "ready" && <StartScreen dispatch={dispatch} />}
+          {status === "error" && <Error />}
           {status === "active" && (
             <>
               <ProgressBar
@@ -120,6 +126,7 @@ function App() {
             <FinishedScreen
               maxPossiblePoints={maxPossiblePoints}
               point={point}
+              dispatch={dispatch}
             />
           )}
         </Main>
