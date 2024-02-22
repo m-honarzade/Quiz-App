@@ -7,6 +7,7 @@ import Questions from "./components/quiz/Questions";
 import Loader from "./components/Loader";
 import NextButton from "./components/NextButton";
 import ProgressBar from "./components/ProgressBar";
+import FinishedScreen from "./components/FinishedScreen";
 
 const initialState = {
   questions: [],
@@ -49,6 +50,11 @@ const reducer = (state, action) => {
         index: state.index + 1,
         answer: null,
       };
+    case "finish":
+      return {
+        ...state,
+        status: "finish",
+      };
 
     default:
       throw new Error("Unknown Error.");
@@ -84,12 +90,7 @@ function App() {
       <div className="w-full h-screen bg-[#343a40] flex flex-col align-middle pt-16 gap-4">
         <Header />
 
-        <Main
-        // status={status}
-        // questions={questions}
-        // index={index}
-        // dispatch={dispatch}
-        >
+        <Main>
           {status === "loading" && <Loader />};
           {status === "ready" && <StartScreen dispatch={dispatch} />};
           {status === "error" && <Error />};
@@ -107,8 +108,19 @@ function App() {
                 dispatch={dispatch}
                 answer={answer}
               />
-              <NextButton dispatch={dispatch} answer={answer} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                numOfQuestions={numOfQuestions}
+                index={index}
+              />
             </>
+          )}
+          {status === "finish" && (
+            <FinishedScreen
+              maxPossiblePoints={maxPossiblePoints}
+              point={point}
+            />
           )}
         </Main>
       </div>

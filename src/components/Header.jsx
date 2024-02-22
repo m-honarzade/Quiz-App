@@ -7,7 +7,7 @@ const Header = () => {
           alt="react logo"
           className="w-28  "
         />
-        <h1 className="uppercase text-white text-5xl font-[Codystar]  ">
+        <h1 className="uppercase text-white text-5xl font-[Codystar] ">
           the react quiz
         </h1>
       </header>
